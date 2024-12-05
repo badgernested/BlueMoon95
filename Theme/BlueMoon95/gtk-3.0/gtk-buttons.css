@@ -32,7 +32,7 @@ button {
   button:disabled:checked {
     border: 2px solid @border_shade;
     background-color: @bg_color;
-    color: @border_bright; }
+    color: @panel_fg_color; }
 
 /* Sidebar buttons */
 button.sidebar-button {
