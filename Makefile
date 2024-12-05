@@ -12,7 +12,7 @@
 # Dependencies:
 #    build-dpkg: txt2man
 
-APPNAME    = chicago95
+APPNAME    = bluemoon95
 APPVERSION = 2.0.1
 SRCDIR     = $(CURDIR)
 BUILDDIR   = $(CURDIR)

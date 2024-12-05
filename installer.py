@@ -18,7 +18,7 @@ running_folder = os.path.dirname(os.path.abspath(__file__))
 
 assets = "/Extras/"
 
-#HOME_FOLDER = '/home/phil/Chicago95/Cursors/' 
+#HOME_FOLDER = '/home/phil/BlueMoon95/Cursors/' 
 
 
 class InstallGUI:
@@ -42,7 +42,7 @@ class InstallGUI:
 	def set_style(self):
 		# From https://gist.github.com/carlos-jenkins/8923124
 		provider = Gtk.CssProvider()
-		provider.load_from_path(running_folder + "/Theme/Chicago95/gtk-3.0/gtk.css")
+		provider.load_from_path(running_folder + "/Theme/BlueMoon95/gtk-3.0/gtk.css")
 		screen = Gdk.Display.get_default_screen(Gdk.Display.get_default())
 		# I was unable to found instrospected version of this
 		GTK_STYLE_PROVIDER_PRIORITY_APPLICATION = 600
@@ -63,7 +63,7 @@ class InstallGUI:
 			statvfs.f_frsize * statvfs.f_bfree      # Actual number of free bytes
 			self.available_kb = (statvfs.f_frsize * statvfs.f_bavail) / 1024
 			self.theme_size_kb = self.folder_size(running_folder+"/Theme")
-			self.icons_size_kb = self.folder_size(running_folder+"/Icons/Chicago95")
+			self.icons_size_kb = self.folder_size(running_folder+"/Icons/BlueMoon95")
 			self.cursors_size_kb = self.folder_size(running_folder+"/Cursors")
 			self.background_size_kb = 0
 			self.sounds_size_kb = self.folder_size(running_folder+"/sounds")
@@ -92,7 +92,7 @@ class InstallGUI:
 			return
 		
 		if next_button.get_label() == "Finish":
-			print("Install Completed! Enjoy Chicago95!")
+			print("Install Completed! Enjoy BlueMoon95!")
 			Gtk.main_quit()
 			return False
 
@@ -174,12 +174,12 @@ class InstallGUI:
 		if self.install_theme:
 			# Does ~/.themes exist?
 			Path(os.path.expanduser("~/.themes")).mkdir(parents=True, exist_ok=True)
-			self.copy_files.update(self.get_files(running_folder+"/Theme/Chicago95/", os.path.expanduser("~/.themes"), "Theme"))
+			self.copy_files.update(self.get_files(running_folder+"/Theme/BlueMoon95/", os.path.expanduser("~/.themes"), "Theme"))
 			self.copy_files["install_theme"] = self.install_theme
 			self.progress_label_sections.append("GTK Theme")
 		if self.install_icons:
 			Path(os.path.expanduser("~/.icons")).mkdir(parents=True, exist_ok=True)
-			self.copy_files.update(self.get_files(running_folder+"/Icons/Chicago95/", os.path.expanduser("~/.icons"), "Icons"))
+			self.copy_files.update(self.get_files(running_folder+"/Icons/BlueMoon95/", os.path.expanduser("~/.icons"), "Icons"))
 			self.copy_files["install_icons"] = self.install_icons
 			self.progress_label_sections.append("Icons")
 		if self.install_cursors:
@@ -192,7 +192,7 @@ class InstallGUI:
 			self.progress_label_sections.append("Background")
 		if self.install_sounds:
 			Path(os.path.expanduser("~/.local/share/sounds")).mkdir(parents=True, exist_ok=True)
-			self.copy_files.update(self.get_files(running_folder+"/sounds/Chicago95/", os.path.expanduser("~/.local/share/sounds"), "sounds"))
+			self.copy_files.update(self.get_files(running_folder+"/sounds/BlueMoon95/", os.path.expanduser("~/.local/share/sounds"), "sounds"))
 			self.copy_files["install_sounds"] = self.install_sounds
 			self.progress_label_sections.append("Sounds")
 		if self.install_fonts:
@@ -206,7 +206,7 @@ class InstallGUI:
 		if self.terminal_colors:
 			Path(os.path.expanduser("~/.local/share/xfce4/terminal/colorschemes")).mkdir(parents=True, exist_ok=True)
 			Path(os.path.expanduser("~/.config/xfce4/terminal/")).mkdir(parents=True, exist_ok=True)
-			self.copy_files[running_folder+"/Extras/Chicago95.theme"] = os.path.expanduser("~/.local/share/xfce4/terminal/colorschemes")
+			self.copy_files[running_folder+"/Extras/BlueMoon95.theme"] = os.path.expanduser("~/.local/share/xfce4/terminal/colorschemes")
 			self.copy_files[running_folder+"/Extras/terminalrc"] = os.path.expanduser("~/.config/xfce4/terminal/")
 			if os.path.exists(os.path.expanduser("~/.config/xfce4/terminal/terminalrc")):
 				shutil.copyfile(os.path.expanduser("~/.config/xfce4/terminal/terminalrc"),os.path.expanduser("~/.config/xfce4/terminal/backup.terminalrc.chicago95"))
@@ -239,7 +239,7 @@ class InstallGUI:
 		
 	def install(self):
 		i = 0.0
-		print("Installing Chicago 95")
+		print("Installing Blue Moon 95")
 
 		for from_file in self.copy_files:
 			self.progress_label.set_label(from_file.split("/")[-1])
@@ -256,10 +256,10 @@ class InstallGUI:
 			else:
 				if from_file == "install_theme" and self.copy_files["install_theme"]:
 					print("Enabling Theme in XFCE4")
-					self.xfconf_query('xsettings', '/Net/ThemeName', "Chicago95")
-					self.xfconf_query('xfce4-notifyd', '/theme', "Chicago95")
+					self.xfconf_query('xsettings', '/Net/ThemeName', "BlueMoon95")
+					self.xfconf_query('xfce4-notifyd', '/theme', "BlueMoon95")
 					self.xfconf_query('xfce4-notifyd', '/initial-opacity', "1.000000")
-					self.xfconf_query('xfwm4', '/general/theme', "Chicago95")
+					self.xfconf_query('xfwm4', '/general/theme', "BlueMoon95")
 					self.xfconf_query('xfwm4', '/general/title_font', "Sans Bold 8")
 					self.xfconf_query("xfwm4","/general/shadow_delta_height","0")
 					self.xfconf_query("xfwm4","/general/shadow_delta_width","0")
@@ -312,24 +312,24 @@ class InstallGUI:
 
 				elif from_file == "install_cursors" and self.copy_files["install_cursors"]:
 					print("Enabling Cursors in XFCE4")
-					self.xfconf_query('xsettings', '/Gtk/CursorThemeName', "Chicago95 Standard Cursors")
+					self.xfconf_query('xsettings', '/Gtk/CursorThemeName', "BlueMoon95 Standard Cursors")
 					self.change_component_label()
 				elif from_file == "install_sounds" and self.copy_files["install_sounds"]:
 					print("Enabling Sounds in XFCE4")
 					self.xfconf_query('xsettings', '/Net/EnableEventSounds', "true")
 					self.xfconf_query('xsettings', '/Net/EnableInputFeedbackSounds', "true")
-					self.xfconf_query('xsettings', '/Net/SoundThemeName', "Chicago95")
+					self.xfconf_query('xsettings', '/Net/SoundThemeName', "BlueMoon95")
 					self.change_component_label()
 				elif from_file == "install_fonts" and self.copy_files["install_fonts"]:
 					print("Enabling Fonts in XFCE4")
 					self.change_component_label()
           # LOL this is a lie we don't have to do anything
 				elif from_file == "thunar" and self.copy_files["thunar"]:
-					if os.path.exists(os.path.expanduser("~/.themes/Chicago95/gtk-3.24/apps/thunar.css")):
+					if os.path.exists(os.path.expanduser("~/.themes/BlueMoon95/gtk-3.24/apps/thunar.css")):
 						print("Enabling authenticity in Thunar")
-						shutil.move( os.path.expanduser("~/.themes/Chicago95/gtk-3.24/apps/thunar.css"),os.path.expanduser("~/.themes/Chicago95/gtk-3.24/apps/thunar.css.bak") )
-						fileh = open(os.path.expanduser("~/.themes/Chicago95/gtk-3.24/apps/thunar.css.bak"),"r")
-						nfileh = open(os.path.expanduser("~/.themes/Chicago95/gtk-3.24/apps/thunar.css"),"w")
+						shutil.move( os.path.expanduser("~/.themes/BlueMoon95/gtk-3.24/apps/thunar.css"),os.path.expanduser("~/.themes/BlueMoon95/gtk-3.24/apps/thunar.css.bak") )
+						fileh = open(os.path.expanduser("~/.themes/BlueMoon95/gtk-3.24/apps/thunar.css.bak"),"r")
+						nfileh = open(os.path.expanduser("~/.themes/BlueMoon95/gtk-3.24/apps/thunar.css"),"w")
 						next_line = False
 						for line in fileh:
 							if next_line:
@@ -347,7 +347,7 @@ class InstallGUI:
 						fileh.close()
 						nfileh.close()
 					else:
-						print("Chicago95 theme not installed, cannot modify thunar")
+						print("BlueMoon95 theme not installed, cannot modify thunar")
 					self.change_component_label()
 				elif from_file == "terminal_colors" and self.copy_files["terminal_colors"]:
 					print("Enabling Terminal color theme")
@@ -377,13 +377,13 @@ class InstallGUI:
 						prompts = prompts_file.read()
 						prompts_file.close()
 
-						shutil.copyfile(running_folder+"/Extras/Chicago95.zsh-theme", os.path.expanduser("~/.oh-my-zsh/themes/Chicago95.zsh-theme"))
+						shutil.copyfile(running_folder+"/Extras/BlueMoon95.zsh-theme", os.path.expanduser("~/.oh-my-zsh/themes/Chicago95.zsh-theme"))
 						shutil.move( os.path.expanduser("~/.zshrc"),os.path.expanduser("~/.backup.zshrc.chicago95") )
 						fileh = open(os.path.expanduser("~/.backup.zshrc.chicago95"),"r")
 						nfileh = open(os.path.expanduser("~/.zshrc"),"w")
 						for line in fileh:
 							if "ZSH_THEME" in line:
-								line = "ZSH_THEME=Chicago95"
+								line = "ZSH_THEME=BlueMoon95"
 							nfileh.write(line)
 						fileh.close()
 						nfileh.close()
@@ -392,8 +392,8 @@ class InstallGUI:
 					self.change_component_label()
 				elif from_file == "panel" and self.copy_files["panel"]:
 					print("Generating XFCE panel")
-					print("Installing Panel config from: "+ running_folder +"/Extras/Chicago95_Panel_Preferences.tar.bz2")
-					#xfce4-panel-profiles load Extras/Chicago95_Panel_Preferences.tar.bz2
+					print("Installing Panel config from: "+ running_folder +"/Extras/BlueMoon95_Panel_Preferences.tar.bz2")
+					#xfce4-panel-profiles load Extras/BlueMoon95_Panel_Preferences.tar.bz2
 					subprocess.check_call(["xfce4-panel-profiles", "load", running_folder+"/Extras/Chicago95_Panel_Preferences.tar.bz2"], stdout=subprocess.DEVNULL)
 					self.change_component_label()
 					
@@ -425,7 +425,7 @@ class InstallGUI:
 		try:
 			xfconf_query_path = subprocess.check_output(["which", "xfconf-query"]).strip()
 		except:
-			print("Warning: xfconf-query not installed, cannot auto-enable theme. Use your distros theme management to install Chicago95")
+			print("Warning: xfconf-query not installed, cannot auto-enable theme. Use your distros theme management to install BlueMoon95")
 			return
 
 		try:
